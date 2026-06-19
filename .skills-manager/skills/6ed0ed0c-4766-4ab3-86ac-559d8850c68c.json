@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "6ed0ed0c-4766-4ab3-86ac-559d8850c68c",
+  "path": "playwright-cli",
+  "path_key": "playwright-cli",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "microsoft/playwright-cli/playwright-cli",
+    "subpath": "skills/playwright-cli",
+    "branch": null
+  }
+}

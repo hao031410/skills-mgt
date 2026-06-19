@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "1cb45e72-59fc-4504-91fa-58bcf72f06a5",
+  "path": "gpt-image-2",
+  "path_key": "gpt-image-2",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "agentspace-so/agent-skills/gpt-image-2",
+    "subpath": "gpt-image-2",
+    "branch": null
+  }
+}

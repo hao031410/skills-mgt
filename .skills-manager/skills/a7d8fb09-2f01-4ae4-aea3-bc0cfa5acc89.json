@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "a7d8fb09-2f01-4ae4-aea3-bc0cfa5acc89",
+  "path": "lark-minutes",
+  "path_key": "lark-minutes",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "larksuite/cli/lark-minutes",
+    "subpath": "skills/lark-minutes",
+    "branch": null
+  }
+}

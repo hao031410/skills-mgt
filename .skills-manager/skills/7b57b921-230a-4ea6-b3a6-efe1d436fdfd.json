@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "7b57b921-230a-4ea6-b3a6-efe1d436fdfd",
+  "path": "lark-vc",
+  "path_key": "lark-vc",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "larksuite/cli/lark-vc",
+    "subpath": "skills/lark-vc",
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "cfac0a6c-35ca-4a77-a277-1693c728685d",
+  "path": "git-commit",
+  "path_key": "git-commit",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/hao031410/claude-tool",
+    "subpath": "skills/git-commit",
+    "branch": null
+  }
+}

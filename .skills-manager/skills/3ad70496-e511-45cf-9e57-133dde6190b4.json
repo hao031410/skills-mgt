@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "3ad70496-e511-45cf-9e57-133dde6190b4",
+  "path": "lark-markdown",
+  "path_key": "lark-markdown",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "larksuite/cli/lark-markdown",
+    "subpath": "skills/lark-markdown",
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "03111b2e-8883-4a84-8c78-1e6d68d8531b",
+  "path": "high-end-visual-design",
+  "path_key": "high-end-visual-design",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "leonxlnx/taste-skill/high-end-visual-design",
+    "subpath": "skills/soft-skill",
+    "branch": null
+  }
+}

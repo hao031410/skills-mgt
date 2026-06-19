@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "770a3bf8-b45f-436c-84ae-231366aee9d0",
+  "path": "imagegen-frontend-mobile",
+  "path_key": "imagegen-frontend-mobile",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "leonxlnx/taste-skill/imagegen-frontend-mobile",
+    "subpath": "skills/imagegen-frontend-mobile",
+    "branch": null
+  }
+}

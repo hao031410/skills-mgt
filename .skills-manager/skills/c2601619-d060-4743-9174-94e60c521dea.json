@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "c2601619-d060-4743-9174-94e60c521dea",
+  "path": "meegle",
+  "path_key": "meegle",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "larksuite/meegle-cli/meegle",
+    "subpath": "skills/meegle",
+    "branch": null
+  }
+}

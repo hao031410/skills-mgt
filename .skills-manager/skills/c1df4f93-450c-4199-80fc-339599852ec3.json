@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "c1df4f93-450c-4199-80fc-339599852ec3",
+  "path": "image-taste-frontend",
+  "path_key": "image-taste-frontend",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "leonxlnx/taste-skill/image-taste-frontend",
+    "subpath": "skills",
+    "branch": null
+  }
+}

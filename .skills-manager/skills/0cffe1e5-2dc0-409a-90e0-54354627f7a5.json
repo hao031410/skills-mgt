@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "0cffe1e5-2dc0-409a-90e0-54354627f7a5",
+  "path": "technical-docs",
+  "path_key": "technical-docs",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/hao031410/claude-tool",
+    "subpath": "skills/technical-docs",
+    "branch": null
+  }
+}
