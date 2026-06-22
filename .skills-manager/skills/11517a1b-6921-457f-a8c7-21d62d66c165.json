@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "11517a1b-6921-457f-a8c7-21d62d66c165",
+  "path": "cli-gh",
+  "path_key": "cli-gh",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "paulrberg/agent-skills/cli-gh",
+    "subpath": "skills/cli-gh",
+    "branch": null
+  }
+}

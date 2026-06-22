@@ -4,8 +4,13 @@
   "skill_id": "cfac0a6c-35ca-4a77-a277-1693c728685d",
   "sort_order": 0,
   "tools": {
+    "amp": true,
+    "antigravity": true,
     "claude_code": true,
     "codex": true,
+    "cursor": true,
+    "deepagents": true,
+    "firebender": true,
     "opencode": true,
     "qoder": true,
     "warp": true

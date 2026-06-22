@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "scenario_id": "5af3580f-78b1-4ba5-b405-fd4b2f205511",
+  "skill_id": "654823a0-ba04-4994-9918-39738893e7b8",
+  "sort_order": 12,
+  "tools": {
+    "amp": true,
+    "antigravity": true,
+    "claude_code": true,
+    "codex": true,
+    "cursor": true,
+    "deepagents": true,
+    "firebender": true,
+    "opencode": true,
+    "qoder": true,
+    "warp": true
+  }
+}
