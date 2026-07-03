@@ -1,5 +1,7 @@
 # Troubleshooting
 
+> When to read: Read when gh fails with auth/permission/rate-limit errors, or hits command errors, installation/config issues, or network problems.
+
 Common issues and solutions when using gh CLI.
 
 ## Authentication Issues
@@ -266,7 +268,7 @@ brew install gh
 brew upgrade gh
 
 # Update PATH (if installed but not in PATH)
-export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Verify installation
 which gh

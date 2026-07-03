@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "4a0076f0-4a00-4ca7-891b-c95248369d9e",
+  "path": "apifox-cli",
+  "path_key": "apifox-cli",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "local",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

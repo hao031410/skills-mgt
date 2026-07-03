@@ -1,15 +1,23 @@
 ---
 name: codebase-memory
-version: "1.0.0"
-description: "Use the codebase knowledge graph for structural code queries. Use when: exploring the codebase, understanding architecture, finding functions, tracing call chains, finding callers/dependencies, impact analysis, dead code detection, refactoring, code quality audit, writing Cypher/graph queries, or using search_graph."
-metadata:
-  starchild:
-    emoji: "🧠"
+description: "Use the codebase knowledge graph for structural code queries and call/dependency tracing. This skill should be used when exploring architecture, finding functions, tracing callers or callees, analyzing impact, or writing graph and Cypher queries."
 ---
 
 # Codebase Memory — Knowledge Graph Tools
 
-Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
+Use MCP knowledge-graph tools for structural code discovery before falling back to grep or raw file search.
+
+Use this skill when the task is about code structure rather than string matching: finding functions or classes, tracing callers or callees, understanding dependencies, exploring architecture, estimating impact, or writing Cypher queries against the graph.
+
+Prefer this workflow:
+1. Confirm the target project is indexed with `list_projects`.
+2. Inspect available node and edge types with `get_graph_schema` when the graph shape is unclear.
+3. Locate candidate symbols with `search_graph`.
+4. Trace relationships with `trace_path`.
+5. Read exact implementations with `get_code_snippet`.
+6. Use `query_graph` only when built-in graph search or tracing is insufficient.
+
+Fall back to `search_code` or grep only for string literals, config values, log messages, or non-code files that are not represented well in the graph.
 
 ## Quick Decision Matrix
 
@@ -26,15 +34,15 @@ Graph tools return precise structural results in ~500 tokens vs ~80K for grep.
 | Text search | `search_code` or Grep |
 
 ## Exploration Workflow
-1. `list_projects` — check if project is indexed
-2. `get_graph_schema` — understand node/edge types
-3. `search_graph(label="Function", name_pattern=".*Pattern.*")` — find code
-4. `get_code_snippet(qualified_name="project.path.FuncName")` — read source
+1. Run `list_projects` to confirm the repository is indexed.
+2. Run `get_graph_schema` to understand node and edge types when needed.
+3. Run `search_graph(label="Function", name_pattern=".*Pattern.*")` to find candidate code.
+4. Run `get_code_snippet(qualified_name="project.path.FuncName")` to read exact source.
 
 ## Tracing Workflow
-1. `search_graph(name_pattern=".*FuncName.*")` — discover exact name
-2. `trace_path(function_name="FuncName", direction="both", depth=3)` — trace
-3. `detect_changes()` — map git diff to affected symbols
+1. Run `search_graph(name_pattern=".*FuncName.*")` to discover the exact symbol name.
+2. Run `trace_path(function_name="FuncName", direction="both", depth=3)` to trace callers and callees.
+3. Run `detect_changes()` to map a git diff to affected symbols when impact matters.
 
 ## Quality Analysis
 - Dead code: `search_graph(max_degree=0, exclude_entry_points=true)`

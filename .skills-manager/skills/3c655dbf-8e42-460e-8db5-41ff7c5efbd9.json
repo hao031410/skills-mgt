@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "3c655dbf-8e42-460e-8db5-41ff7c5efbd9",
+  "path": "skill-creator",
+  "path_key": "skill-creator",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "davepoon/buildwithclaude/skill-creator",
+    "subpath": "plugins/all-skills/skills/skill-creator",
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "e7e48575-dea6-43eb-8503-375f42bfc083",
+  "path": "git-auto-cp",
+  "path_key": "git-auto-cp",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "local",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
