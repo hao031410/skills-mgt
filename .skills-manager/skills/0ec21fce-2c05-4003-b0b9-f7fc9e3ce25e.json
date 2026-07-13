@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "0ec21fce-2c05-4003-b0b9-f7fc9e3ce25e",
+  "path": "requirement-analyzer",
+  "path_key": "requirement-analyzer",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "local",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
