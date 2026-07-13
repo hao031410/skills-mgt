@@ -52,7 +52,7 @@
 
 **关键风险**：<一句话说明最需要注意的风险>
 
-详见：[`迭代<N>/<序号>-<slug>.md`](迭代<N>/<序号>-<slug>.md)
+详见：[`<迭代名>/<序号>-<slug>.md`](<迭代名>/<序号>-<slug>.md)
 
 ---
 
@@ -76,15 +76,15 @@
 ## 输出文件清单
 
 ```
-docs/requirement-analyzer/<yyMMdd>-<uuid>/
+docs/requirement-analyzer/<yyMMdd>-<slug>/
 ├── SUMMARY.md                            ← 本文件
 ├── _raw/
 │   ├── story_<id>.json                    ← 飞书 story 原始数据
 │   └── wiki_<token>.md                    ← 飞书 wiki 内容快照
-├── 迭代1/
+├── <迭代名>/                              ← 按 story 的 planning_sprint.label 分目录
 │   ├── 01-<slug>.md                       ← 需求 #1 详细分析
 │   └── 02-<slug>.md                       ← 需求 #2 详细分析
-└── 迭代2/
+└── <产品线key>/                           ← 无规划迭代则用产品线 key 小写
     └── 01-<slug>.md                       ← 需求 #N 详细分析
 ```
 
