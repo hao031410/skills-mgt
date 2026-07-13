@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "fc46f191-a5d6-4d22-86e1-6ec402b2689c",
+  "path": "work-report",
+  "path_key": "work-report",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "local",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
