@@ -101,6 +101,25 @@
 
 **处理**：以"当前代码状态"为准判定。如果代码中确实有实现但 git log 找不到相关 commit，标 PARTIAL 并注明"有实现但无法追溯到具体 commit"。
 
+### 8. MQL 查询报 `attr label not found`（字段名错误）
+
+**症状**：meegle MQL 查询返回 `attr label not found` 或 `attribute key or value error`
+
+**根因**：MQL 中的字段 key 与 meegle schema 不一致。常见错误：
+- 用了 `status` 而非 `work_item_status`
+- 用了 `update_time` 而非 `updated_at`
+- 用了 `create_time` 而非 `start_time`
+
+**预防**：执行 MQL 前先跑一次 `meegle workitem meta-fields --work-item-type story --project-key xlb --page-num 1` 确认字段 key。
+
+**处理**：根据 `meta-fields` 返回的 `field_key` 修正 MQL 后再执行。
+
+### 9. `meta-fields` 报 `required flag(s) "page-num" not set`
+
+**症状**：调用 `meegle workitem meta-fields` 时报缺少 `--page-num` 参数
+
+**处理**：meta-fields 命令**必须**带 `--page-num 1`（该参数是必填的，不是可选的）。字段量大时翻页取全量。
+
 ---
 
 ## 重试指南

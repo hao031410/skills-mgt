@@ -198,7 +198,7 @@ docs/requirement-analyzer/<yyMMdd>-<slug>/
 - `yyMMdd`：分析执行日期（如 `240713`）
 - `slug`（外层）：目录标识符，优先级为用户指定 > 首个迭代名（如 `FSMS-20260727`→`fsms-20260727`）> 产品线 key 小写（如 `fsms`）
 - `<迭代名>`（子目录）：取 story 的 `planning_sprint[].label` 为目录名（如 `FSMS-20260727`）；无规划迭代则用产品线 key 小写（如 `fsms`）
-- `<slug>`（文件名）：从需求标题提取的英文短标识（如 `supplier-audit-feishu-scope`）
+- `<slug>`（文件名）：从需求标题提取的英文短标识（如 `user-auth-refactor`）
 - 序号 `01`、`02` 在迭代目录内编号（两位数字，零填充）
 
 ---
@@ -216,8 +216,8 @@ session:
 config:
   iterations: ["FSMS-20260727"]
   product_line: "FSMS"
-  repo_path: "/Users/bytego/coder/vanchen/backend/fsms"
-  codebase_memory_project: "Users-bytego-coder-vanchen-fsms"
+  repo_path: "<vanchen根>/backend/fsms"
+  codebase_memory_project: "<list_projects 实际返回的项目名>"
   from_snapshot: null
 
 source_stats:
@@ -289,7 +289,7 @@ review:
 ## 相关 references
 
 - `references/product-line-mapping.md` — 产品线 → 仓库路径 + codebase-memory 项目映射
-- `references/meegle-queries.md` — MQL 查询模板（从 work-report 适配）
+- `references/meegle-queries.md` — MQL 查询模板
 - `references/feishu-integration.md` — meegle 认证、lark-doc/lark-wiki 读取、踩坑清单
 - `references/agent-prompts.md` — 分析 Agent + 审核 Agent 完整系统提示词
 - `references/quality-checklist.md` — 审核 Agent 检查清单（6 大类）

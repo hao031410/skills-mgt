@@ -81,4 +81,3 @@
 - 报告由 work-report skill 自动生成
 - 模板版本：v1（严格 4 段：已完成/进行中/问题/下周计划）
 - 如需修订，请直接编辑本文件后重命名为 `.final.md` 留档
-- skill 源码：`/Users/bytego/coder/vanchen/.claude/skills/work-report/`

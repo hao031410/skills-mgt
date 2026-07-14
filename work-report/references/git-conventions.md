@@ -9,34 +9,21 @@
 
 ### 1.1 算法
 
-从当前工作目录（vanchen 聚合根，假设是 `/Users/bytego/coder/vanchen`）开始：
+从当前工作目录（vanchen 聚合根）开始：
 
 1. 递归扫描所有子目录
 2. 凡是包含 `.git/` 目录的路径，识别为一个 git 仓
 3. 排除 `.git/` 自身（避免重复处理）
 4. 记录每个仓的绝对路径
 
-**vanchen 聚合根的子项目**（截至 2026-07）：
+**子项目发现方式**：work-report 在执行时按算法 §1.1 自动扫描当前目录（vanchen 聚合根）下所有含 `.git/` 的子目录，**不在此处维护清单**。新增/移除子项目后无需修改本文件。
 
-```
-vanchen/                     ← 聚合根自身（独立 git 仓）
-├── .git/
-├── docs/
-├── .claude/
-└── backend/
-    ├── fsms/                ← 子项目（独立 git 仓 + git submodule 指针）
-    │   └── .git/
-    ├── scm/                 ← 子项目
-    │   └── .git/
-    └── erp-purchase/        ← 当前不是独立 git 仓（会跳过）
-```
-
-**注意**：vanchen 根的 `.gitmodules` 中 `backend/fsms`、`backend/scm` 是 git submodule 形式。在聚合根跑 `git log` **不会**递归进 submodule。需要：
-
-- 用 `git -C <submodule_path> log` 单独拉取
-- 或在聚合根用 `git log --recurse-submodules`（会含 submodule 内部 commit）
-
-work-report 默认用**单独跑每个 git 仓**的方式（更可控）。
+> **注意**：vanchen 根的 `.gitmodules` 中以 submodule 形式登记的子项目，在聚合根跑 `git log` **不会**递归进 submodule。需要：
+>
+> - 用 `git -C <submodule_path> log` 单独拉取
+> - 或在聚合根用 `git log --recurse-submodules`（会含 submodule 内部 commit）
+>
+> work-report 默认用**单独跑每个 git 仓**的方式（更可控）。
 
 ### 1.2 探测命令
 
@@ -275,13 +262,9 @@ LLM 关注：
 
 ### 6.1 子项目数
 
-vanchen 当前 3 个子项目（fsms/scm/erp-purchase），其中：
+子项目数量由 §1.1 自动发现决定，不在此硬编码。
 
-- `fsms/` 是 git submodule，git log 数据量大
-- `scm/` 较小
-- `erp-purchase/` 非 git 仓
-
-work-report 应在 5 秒内完成所有子项目扫描。
+> 仅作性能参考：submodule 子项目的 git log 数据量可能较大；非 git 仓子目录会被自动跳过。work-report 应在 5 秒内完成所有子项目扫描。
 
 ### 6.2 commit 数量
 

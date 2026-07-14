@@ -1,8 +1,7 @@
 # feishu 工具集成（work-report skill 内部参考）
 
-> 吸收自 vanchen 聚合根 `docs/feishu.md` 的 meegle / lark-cli 使用经验，凝练为 LLM 行动指引。
-> 与原文档的关系：原文档是团队完整沉淀（包含 IM/Sheet/Base 等场景）；本文只覆盖 work-report 所需的最小集。
-> 详细踩坑与备选命令如有疑问，回到 `docs/feishu.md` 查证。
+> meegle / lark-cli 使用经验与踩坑清单，凝练为 work-report 行动指引。
+> 只覆盖 work-report 所需的最小集（meegle 认证 + MQL 拉 story）；其他场景（IM/Sheet/Base 等）不在本 skill 范围内。
 
 ---
 
@@ -10,7 +9,7 @@
 
 **每个 work-report 任务开始前**：
 
-1. 调 meegle skill 的认证状态命令（见 meegle skill SKILL.md 的 `Auth` 域）确认登录态
+1. 调 meegle skill 的认证状态命令确认登录态
 2. 未登录：**中断工作流**，提示用户执行 meegle skill 的登录命令
 3. 不要替用户做 OAuth；这是用户主动行为
 

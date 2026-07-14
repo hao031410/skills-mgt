@@ -1,8 +1,7 @@
 # 飞书工具集成（requirement-analyzer skill 内部参考）
 
-> 从 work-report skill 的 `references/feishu-integration.md` 适配而成。
+> meegle / lark-cli 使用经验与踩坑清单，凝练为 requirement-analyzer 行动指引。
 > 增加 lark-doc/lark-wiki 读取规范（requirement-analyzer 需要读取需求 wiki 正文）。
-> 详细踩坑如有疑问，回到 vanchen 聚合根 `docs/feishu.md` 查证。
 
 ---
 
@@ -110,7 +109,7 @@ https://<tenant>.feishu.cn/wiki/<token>
 
 ### 4.5 大文档处理
 
-- wiki 内容可能很大（如 `fsms-20260727` 的 wiki_store_risk 是 144KB）
+- wiki 内容可能很大（实测可超过 100KB）
 - 保存原始 wiki 内容到 `_raw/wiki_<token>.md`
 - 分析子 Agent 会全文读取，LLM 有能力处理大上下文
 
@@ -132,10 +131,12 @@ https://<tenant>.feishu.cn/wiki/<token>
 
 用 meegle skill 的工作项查询能力，参考 `references/meegle-queries.md` 的模板。
 
+**🚨 前置**：执行 MQL 前必须先调 `workitem meta-fields` 确认字段 key（见 `meegle-queries.md` §0）。直接猜测字段名会导致 `attr label not found`。
+
 - 选 `story` 工作项类型
 - 范围：`array_contains(all_participate_persons(), current_login_user())`
 - `LIMIT 50`
-- 选字段：`work_item_id`, `name`, `status`, `priority`, `description`, `planning_sprint`, `update_time`
+- 选字段（**已验证为 xlb 空间正确 key**）：`work_item_id`, `name`, `priority`, `description`, `planning_sprint`, `work_item_status`, `current_status_operator`, `watchers`, `updated_at`, `start_time`
 
 ### 步骤 C：客户端按迭代过滤
 

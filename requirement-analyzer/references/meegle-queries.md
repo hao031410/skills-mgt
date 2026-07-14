@@ -1,8 +1,29 @@
 # meegle 标准 MQL 模板（requirement-analyzer skill 内部参考）
 
 > requirement-analyzer 在 Step 2（拉取飞书需求）阶段使用的 MQL 模板。
-> 从 work-report skill 的 `references/meegle-queries.md` 适配而成。
 > 实际命令通过 meegle skill 调用，**不硬编码具体 CLI 语法**。
+
+---
+
+## 0. MQL 字段预检（CRITICAL — 每次执行 Step 2 前必须做）
+
+**🚨 字段名在 meegle schema 中可能与直觉不同，直接猜测会导致 SERVER_CALL_FAILED。**
+
+在执行任何 MQL 之前，**必须先**用 `meta-fields` 确认字段 key：
+
+```bash
+meegle workitem meta-fields --work-item-type story --project-key xlb --page-num 1
+```
+
+**常见陷阱（基于 xlb 空间实际 schema）**：
+
+| 直觉猜测（❌ 必错） | 正确 key | 备注 |
+|---------------------|---------|------|
+| `status` | `work_item_status` | 类型 `_work_item_status` |
+| `update_time` | `updated_at` | 类型 `date` |
+| `create_time` | `start_time` | 类型 `date`，字段名"提出时间" |
+
+> ⚠️ **不同空间的字段 key 可能不同**，务必用 `meta-fields` 确认。
 
 ---
 
@@ -16,23 +37,23 @@
 SELECT
   `work_item_id`,
   `name`,
-  `status`,
   `priority`,
   `current_status_operator`,
   `watchers`,
   `description`,
   `planning_sprint`,
-  `update_time`,
-  `create_time`
+  `work_item_status`,
+  `updated_at`,
+  `start_time`
 FROM `65eef07569082b29c300cc80`.`story`
 WHERE array_contains(all_participate_persons(), current_login_user())
-ORDER BY `update_time` DESC
+ORDER BY `updated_at` DESC
 LIMIT 50
 ```
 
 **关键点**：
 - `FROM` 中工作项类型用 key `story`（不用中文名"研发需求"）
-- 字段名全部用 key（`work_item_id` 而非"工作项ID"）
+- 字段名全部用 key（`work_item_id` 而非"工作项ID"）— **必须与 `meta-fields` 返回一致**
 - `LIMIT 50` 是 meegle 默认每页上限；超 50 条需翻页
 - `planning_sprint` 在 MQL 中无法直接按 label/key 过滤（值是结构体数组 `[{key, label}]`），必须在客户端做
 
@@ -80,13 +101,13 @@ meegle workitem --project-key=xlb +batch-get \
 SELECT
   `work_item_id`,
   `name`,
-  `status`,
   `priority`,
   `description`,
   `planning_sprint`,
-  `update_time`
+  `work_item_status`,
+  `updated_at`
 FROM `65eef07569082b29c300cc80`.`story`
-ORDER BY `update_time` DESC
+ORDER BY `updated_at` DESC
 LIMIT 50
 ```
 
@@ -100,14 +121,14 @@ LIMIT 50
 SELECT
   `work_item_id`,
   `name`,
-  `status`,
   `priority`,
   `description`,
   `planning_sprint`,
-  `update_time`
+  `work_item_status`,
+  `updated_at`
 FROM `65eef07569082b29c300cc80`.`story`
 WHERE `name` LIKE '%<keyword>%'
-ORDER BY `update_time` DESC
+ORDER BY `updated_at` DESC
 LIMIT 20
 ```
 
@@ -129,13 +150,13 @@ meegle workitem --project-key=xlb get --work-item-id <id>
 |------|------|------|
 | `work_item_id` | 需求唯一标识，生成 story#id key | ✅ |
 | `name` | 需求标题，作为分析文档标题 | ✅ |
-| `status` | 飞书状态，写入分析文档元数据 | ✅ |
+| `work_item_status` | 飞书状态（**不是 `status`**），写入分析文档元数据 | ✅ |
 | `description` | 需求描述文本，**从中提取 wiki URL** 并作为分析子 Agent 的输入 | ✅ |
 | `planning_sprint` | 迭代归属，**客户端过滤的核心字段** | ✅ |
 | `priority` | 优先级标注 | 推荐 |
 | `current_status_operator` | 当前负责人 | 推荐 |
-| `update_time` | 最近更新时间 | 推荐 |
-| `create_time` | 创建时间 | 可选 |
+| `updated_at` | 最近更新时间（**不是 `update_time`**） | 推荐 |
+| `start_time` | 创建/提出时间（**不是 `create_time`**） | 可选 |
 | `watchers` | 关注人 | 可选 |
 
 **与 work-report 的关键区别**：requirement-analyzer **必须**拉取 `description` 字段，因为需要从中提取 wiki URL 并作为分析子 Agent 的输入。

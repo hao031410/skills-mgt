@@ -174,7 +174,7 @@ report:
 
 ## 相关 references
 
-- `references/feishu-integration.md` — 吸收自 `docs/feishu.md` 的 meegle/lark-cli 调用规范
+- `references/feishu-integration.md` — meegle / lark-cli 调用规范（自包含）
 - `references/meegle-queries.md` — 标准 MQL 模板
 - `references/status-mapping.md` — meegle status → 报告 4 段映射
 - `references/merge-strategy.md` — 三阶段 commit → story 归并算法
