@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "271548e8-0820-41a9-9015-e6462eb089c2",
+  "path": "ascii-visualizer",
+  "path_key": "ascii-visualizer",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "yonatangross/orchestkit/ascii-visualizer",
+    "subpath": "plugins/ork/skills/ascii-visualizer",
+    "branch": null
+  }
+}
