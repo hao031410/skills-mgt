@@ -1,0 +1,4 @@
+interface:
+  display_name: "VanchEN E2E"
+  short_description: "按已启用环境执行可验证的 VanchEN 菜单与页面 E2E 测试"
+  default_prompt: "Use $vanchen-e2e to test the requested VanchEN menu flow in the configured environment."

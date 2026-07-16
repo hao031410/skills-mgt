@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "7e847b7d-a89d-40c9-9041-482c6f1adcf4",
+  "path": "vanchen-e2e",
+  "path_key": "vanchen-e2e",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "local",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

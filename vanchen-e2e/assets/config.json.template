@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "active_environment": "test",
+  "environments": {
+    "test": {
+      "name": "测试环境",
+      "url": "",
+      "enabled": true,
+      "write_policy": "explicit_user_only"
+    },
+    "staging": {
+      "name": "预发环境",
+      "url": "",
+      "enabled": false,
+      "write_policy": "define_before_enable"
+    },
+    "production": {
+      "name": "生产环境",
+      "url": "",
+      "enabled": false,
+      "write_policy": "define_before_enable"
+    }
+  },
+  "launcher_modules": [],
+  "modules": {
+    "模块名称": {
+      "fully_indexed": false,
+      "navigation": [
+        {
+          "name": "一级导航",
+          "groups": {
+            "分组标题": [
+              {
+                "name": "子菜单",
+                "aliases": [],
+                "verification": "observed",
+                "page_assertions": {
+                  "tab": "",
+                  "any_visible_text": []
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "maintenance": {
+    "last_verified_at": "",
+    "rule": "仅写入已在页面中实际展开或成功打开的名称与层级。",
+    "concurrency": "子 agent 回传验证结果；主 agent 统一更新本文件。"
+  }
+}
