@@ -1,6 +1,7 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "active_environment": "test",
+  "allowed_hosts": [],
   "environments": {
     "test": {
       "name": "测试环境",
@@ -47,7 +48,7 @@
   },
   "maintenance": {
     "last_verified_at": "",
-    "rule": "仅写入已在页面中实际展开或成功打开的名称与层级。",
+    "rule": "仅写入已在页面中实际展开或成功打开的名称、层级和页面断言；不要记录 selector、坐标或等待时间。",
     "concurrency": "子 agent 回传验证结果；主 agent 统一更新本文件。"
   }
 }
