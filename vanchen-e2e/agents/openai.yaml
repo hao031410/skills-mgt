@@ -1,4 +1,4 @@
 interface:
   display_name: "VanchEN E2E"
   short_description: "按已启用环境执行可验证的 VanchEN 菜单与页面 E2E 测试"
-  default_prompt: "Use $vanchen-e2e and the official $ego-browser skill to test the requested VanchEN menu flow in the configured environment."
+  default_prompt: "Use $vanchen-e2e and the official $ego-browser skill to test the requested VanchEN menu flow in the configured environment. Use left navigation rather than module search, dismiss menu popups after navigation, and close the task space on completion unless the user asks to keep it open."
