@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "40a10111-df88-4851-95e5-470df7e93a78",
+  "path": "codex-ppt",
+  "path_key": "codex-ppt",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "ningzimu/codex-ppt-skill/codex-ppt",
+    "subpath": "skills/codex-ppt",
+    "branch": null
+  }
+}
