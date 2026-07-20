@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "51855254-ad0f-448d-a5cf-1d7aeed12c20",
+  "path": "image-to-editable-ppt",
+  "path_key": "image-to-editable-ppt",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "ningzimu/image-to-editable-ppt-skill/image-to-editable-ppt",
+    "subpath": "skills/image-to-editable-ppt",
+    "branch": null
+  }
+}
