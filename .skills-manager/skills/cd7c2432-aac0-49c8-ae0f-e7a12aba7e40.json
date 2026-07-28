@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "cd7c2432-aac0-49c8-ae0f-e7a12aba7e40",
+  "path": "img-gen-taste",
+  "path_key": "img-gen-taste",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "nanmicoder/open-image-prompts/img-gen-taste",
+    "subpath": "skills/img-gen-taste",
+    "branch": null
+  }
+}

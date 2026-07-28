@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "2a39fb4b-7972-4f5f-81b6-34bf97794a62",
+  "path": "img-gen-prompts",
+  "path_key": "img-gen-prompts",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "nanmicoder/open-image-prompts/img-gen-prompts",
+    "subpath": "skills/img-gen-prompts",
+    "branch": null
+  }
+}
