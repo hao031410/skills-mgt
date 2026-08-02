@@ -5,7 +5,7 @@
   "sort_order": 15,
   "tools": {
     "claude_code": true,
-    "codex": false,
+    "codex": true,
     "opencode": true,
     "qoder": true,
     "warp": true,

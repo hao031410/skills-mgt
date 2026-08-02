@@ -7,7 +7,7 @@
     "amp": true,
     "antigravity": true,
     "claude_code": true,
-    "codex": false,
+    "codex": true,
     "cursor": true,
     "deepagents": true,
     "firebender": true,
