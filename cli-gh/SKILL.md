@@ -2,6 +2,9 @@
 coordination: exempt
 disable-model-invocation: false
 name: cli-gh
+skill-dependencies:
+  - repo-rename
+  - yeet
 user-invocable: false
 description:
   "Use for GitHub CLI automation: repository reads, workflow runs, search, codespaces, releases, configuration, or gh
@@ -10,8 +13,7 @@ description:
 
 # GitHub CLI
 
-This skill is coordination-exempt: skip the ai-coord gate (`git status` / `ai-coord status` / `ai-coord start`) for this
-skill's own work.
+This skill is coordination-exempt: skip the ai-coord gate for its declared work.
 
 Route GitHub CLI work through current `gh` help and load only the reference for the active task.
 
