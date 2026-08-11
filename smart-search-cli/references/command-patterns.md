@@ -32,12 +32,18 @@ smart-search search "query" --validation strict --fallback auto --providers auto
 smart-search exa-search "query" --num-results 5 --search-type neural --include-text --include-highlights --include-domains docs.example.com developer.mozilla.org --format json
 smart-search exa-similar "https://example.com/article" --num-results 5 --format json
 smart-search context7-library "react" "hooks" --format json
-smart-search context7-docs "/facebook/react" "useEffect cleanup" --format json
+smart-search context7-docs "/reactjs/react.dev" "useEffect cleanup" --format json
 smart-search zhipu-search "today China AI news" --count 5 --format json
 smart-search anysearch-domains security --format json
-smart-search anysearch-search "CVE-2024-3094" --domain security.cve --max-results 3 --format json
-smart-search anysearch-extract "https://example.com/source" --format json
+smart-search anysearch-search "CVE-2024-3094" --domain security --sub-domain vuln --param type=cve --param value=CVE-2024-3094 --max-results 3 --format json
+smart-search anysearch-search "CVE-2024-3094" --domain security.cve --sub-domain-params '{"type":"legacy","value":"old"}' --param type=cve --param value=CVE-2024-3094 --format json
+smart-search anysearch-extract "https://example.com/source" --max-length 12000 --format json
 smart-search anysearch-batch "AAPL" "RAG papers" --max-results 2 --format json
+smart-search sciverse-catalog --collection papers --format json
+smart-search sciverse-search "transformer retrieval" --year-from 2020 --page-size 5 --format json
+smart-search sciverse-semantic "attention mechanism" --top-k 3 --mode balanced --format json
+smart-search sciverse-read "doc-id-from-search" --offset 0 --limit 4096 --format json
+smart-search sciverse-relations "unique-id-from-search" --relation CITATIONS --page-size 25 --format json
 smart-search fetch "https://example.com" --format markdown --output page.md
 smart-search map "https://docs.example.com" --instructions "Find API reference pages" --max-depth 1 --max-breadth 20 --limit 50 --format json
 smart-search research "OpenAI Responses API web_search vs Chat Completions search" --budget deep --fallback auto --format json
@@ -54,6 +60,7 @@ smart-search setup --non-interactive --zhipu-api-url "https://open.bigmodel.cn/a
 smart-search setup --non-interactive --openai-compatible-stream true
 smart-search setup --non-interactive --openai-compatible-fallback-models "model-a,model-b"
 smart-search setup --non-interactive --anysearch-api-url "https://api.anysearch.com/mcp" --anysearch-key "key"
+smart-search setup --non-interactive --sciverse-token "key" --sciverse-api-url "https://api.sciverse.space"
 smart-search setup --non-interactive --tavily-api-url "https://api.tavily.com" --tavily-key "key"
 smart-search --version
 smart-search config path --format json
@@ -68,6 +75,7 @@ smart-search config set OPENAI_COMPATIBLE_MODEL "model-id" --format json
 smart-search config set OPENAI_COMPATIBLE_FALLBACK_MODELS "model-a,model-b" --format json
 smart-search config set OPENAI_COMPATIBLE_STREAM "true" --format json
 smart-search config set ANYSEARCH_API_URL "https://api.anysearch.com/mcp" --format json
+smart-search config set SCIVERSE_API_TOKEN "key" --format json
 smart-search config set ANYSEARCH_API_KEY "key" --format json
 smart-search config set ANYSEARCH_TIMEOUT_SECONDS "30" --format json
 smart-search config set SMART_SEARCH_INTENT_ROUTER "hybrid" --format json
@@ -87,6 +95,7 @@ smart-search config set ZHIPU_API_KEY "key" --format json
 smart-search config set ZHIPU_API_URL "https://open.bigmodel.cn/api" --format json
 smart-search config set ZHIPU_SEARCH_ENGINE "search_pro" --format json
 smart-search config set TAVILY_API_URL "https://api.tavily.com" --format json
+smart-search config set TAVILY_ENABLED "false" --format json
 smart-search config set TAVILY_TIMEOUT_SECONDS "45" --format json
 smart-search config set FIRECRAWL_API_URL "https://api.firecrawl.dev/v2" --format json
 smart-search model current --format json
@@ -97,6 +106,8 @@ smart-search regression
 smart-search smoke --mock --format json
 smart-search smoke --mock --format markdown
 ```
+
+`TAVILY_ENABLED=false` is a complete Tavily no-network switch even if `TAVILY_API_KEY` is still saved. It removes Tavily from automatic web-search/fetch routes, makes direct Tavily boundaries and `doctor` local-only, and makes `map` return a configuration error; it does not configure Firecrawl.
 
 ## Short Aliases
 
@@ -110,7 +121,7 @@ smart-search f "https://example.com" --format markdown
 smart-search exa "OpenAI Responses API documentation" --format json
 smart-search z "today China AI news" --format json
 smart-search c7 "react" "hooks" --format json
-smart-search c7docs "/facebook/react" "useEffect cleanup" --format json
+smart-search c7docs "/reactjs/react.dev" "useEffect cleanup" --format json
 smart-search cfg ls --format json
 smart-search d --format markdown
 smart-search mdl cur --format json

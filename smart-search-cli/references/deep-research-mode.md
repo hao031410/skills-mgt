@@ -152,6 +152,7 @@ Prefer PowerShell-safe quoted commands in generated plans because Windows users 
 - `exa-similar`: adjacent-source discovery when a known reliable URL is available.
 - `search --extra-sources N`: Tavily/Firecrawl horizontal candidate collection for breadth. Treat those candidates as discovery until fetched.
 - `anysearch-domains` and `anysearch-search`: experimental vertical search. Inspect domains first, then search a selected domain; do not insert it into the default fallback chain.
+- `sciverse-catalog`, `sciverse-search`, `sciverse-semantic`, `sciverse-read`, and `sciverse-relations`: explicit experimental academic commands. Use them directly when the task needs Sciverse academic fields, semantic paper hits, document chunks, or citation/reference relations; do not insert Sciverse into default Deep Research fallback.
 - `fetch`: page-content evidence. Key claims require fetched page text under `fetch_before_claim`.
 - `map`: site structure exploration before many fetches from one site; not claim evidence by itself.
 
@@ -177,6 +178,7 @@ Research provider advantage routing:
 - Jina: known public URL, PDF, and arXiv clean extraction; ReaderLM-v2 requires `JINA_API_KEY`.
 - Firecrawl: robust fetch fallback, JS-heavy/dynamic pages, browser-like extraction, OCR/PDF/structured extraction.
 - AnySearch: explicit vertical intent only, such as CVE, finance, legal, academic, and repository/codebase search.
+- Sciverse: explicit-only academic provider in this release; use direct `sciverse-*` commands rather than `research` fallback.
 
 Safe research overrides are `SMART_SEARCH_RESEARCH_PREFERRED_PROVIDERS` and `SMART_SEARCH_RESEARCH_DISABLED_PROVIDERS`. They may reorder or disable providers only inside capabilities the provider already supports; they must not move a provider across capability boundaries.
 

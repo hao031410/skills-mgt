@@ -51,11 +51,14 @@ Intent router rules:
 - Chat Completions mode must not send xAI `web_search` / `x_search` tools or legacy `search_parameters`; xAI Chat Completions Live Search is deprecated.
 - The standard minimum profile requires one configured provider in each of `main_search`, `docs_search`, and fetch capability. Missing required capabilities should be treated as a hard configuration failure.
 - AnySearch is reported only as optional experimental `vertical_search`; it is not part of the `web_search` fallback and is not required by the `standard` minimum profile.
+- Sciverse is reported only as optional experimental explicit-only `vertical_search`; it is not `docs_search`, not part of default `search` / `research` fallback, and not required by the `standard` minimum profile.
 - Jina Reader is `web_fetch` only, not a general search provider. `JINA_API_KEY` is required before Jina satisfies the standard minimum profile; anonymous `r.jina.ai` is explicit/experimental fetch behavior.
 - Same-capability fallback is allowed; cross-capability fallback is not. Context7 is not used for unrelated broad web queries, and page extraction providers are not used as docs search providers.
+- `TAVILY_ENABLED=false` removes Tavily from registered `web_search` and `web_fetch` routes even when its key is present. Direct Tavily search/extract calls, `map`, `doctor`, and smoke must make no Tavily network request; `map` reports a local configuration error. Firecrawl remains independently configured and all fallback stays within its capability.
 - `main_search`: xAI Responses first for Grok/xAI, then OpenAI-compatible answer fallback when that peer provider is separately configured and `--fallback auto` is active.
 - `web_search`: Zhipu Web Search API first when routed in, then Zhipu Coding Plan MCP `web_search_prime`, then Tavily / Firecrawl source search when configured.
 - `docs_search`: Context7 first for library/API/docs intent, then Exa for official-domain, paper, product-page, trusted-site, or low-noise supplemental discovery.
+- Automatic Context7 selection has no preferred library-id map. A candidate needs normalized query-subject overlap in its title or id; title/id exact and multi-token matches dominate, while description/trust/benchmark only break ties. When no candidate is eligible, Context7 is recorded as empty and can fall through to same-capability Exa. Explicit `context7-library` output and explicit `context7-docs LIBRARY_ID` remain unchanged.
 - Fetch capability: Tavily first, then Jina Reader with `JINA_API_KEY`, then Zhipu Coding Plan MCP `webReader`, then Firecrawl.
 - `search` calls Tavily and/or Firecrawl only when `--extra-sources N` is greater than 0.
 - With both Tavily and Firecrawl configured, `search --extra-sources N` splits extra sources between them, with Tavily receiving about 60% and Firecrawl the rest.
@@ -65,11 +68,17 @@ Intent router rules:
 - `exa-search` and `exa-similar` use Exa only.
 - `context7-library` and `context7-docs` use Context7 only.
 - `anysearch-domains`, `anysearch-search`, `anysearch-extract`, and `anysearch-batch` use AnySearch only. Treat results as acceptance evidence until the target vertical domain is reviewed.
+- `sciverse-catalog`, `sciverse-search`, `sciverse-semantic`, `sciverse-read`, and `sciverse-relations` use Sciverse only. They are explicit academic commands and must not be inserted into default provider fallback.
 - `zhipu-search` uses Zhipu only.
 - `zhipu-mcp-search`, `zhipu-mcp-reader`, and `zhipu-mcp-*` zread commands use Zhipu Coding Plan Remote MCP only.
 - Runtime config priority is environment variables first, then local config file, then defaults.
 - `setup` and `config` read/write the local Smart Search config file and do not call providers.
 - `model current` reports explicit provider model settings. `model set` is retained only as a parameter-error migration guard; use `config set XAI_MODEL ...` or `config set OPENAI_COMPATIBLE_MODEL ...` to change models.
+
+Provider attempt errors:
+
+- Provider exceptions must be visible as `provider_attempts[].status="error"`, never silently converted to empty output. Use the stable taxonomy: HTTP `400`/`422` is `parameter_error`, `401`/`403` is `auth_error`, timeout is `timeout`, `429` is `rate_limited`, `5xx` or request failure is `network_error`, invalid response decoding is `parse_error`, and explicit upstream tool failures are `provider_error`.
+- A successfully decoded response with no normalized candidates or content is `status="empty"`, so same-capability fallback can continue without misreporting a provider failure.
 
 Zhipu Web Search API:
 
@@ -102,11 +111,24 @@ AnySearch:
 - AnySearch uses JSON-RPC 2.0 `tools/call` at `ANYSEARCH_API_URL`, default `https://api.anysearch.com/mcp`.
 - `ANYSEARCH_API_KEY` is optional. If configured, requests include `Authorization: Bearer ...`; if missing, anonymous requests are allowed.
 - `ANYSEARCH_TIMEOUT_SECONDS` defaults to `30`.
+- Live MCP tools are `search`, `batch_search`, `extract`, and `get_sub_domains`. `anysearch-domains` maps to `get_sub_domains` (not the removed `list_domains` tool).
+- `anysearch-domains DOMAIN` calls the live `get_sub_domains` tool; without `DOMAIN`, it reads the `tools/list` schema for the available domains.
 - HTTP 200 responses with `result.isError=true` must return `ok=false`, `error_type=provider_error`, and no successful source results.
 - Markdown URL/title/snippet candidates should be parsed into `results`, while raw text remains in `content` and `raw_content`.
 - Structured results without URLs must be preserved as raw/structured evidence, not dropped.
-- Dotted vertical domain shorthand such as `security.cve` must be normalized to `domain=security` plus `sub_domain=cve` before calling AnySearch.
+- Dotted vertical domain shorthand such as `code.doc` is allowed for simple subdomains and must be normalized to `domain=code` plus `sub_domain=doc`; parameterized subdomains parse `--sub-domain-params` JSON first, then repeatable `--param KEY=VALUE` entries override matching keys. Invalid JSON, non-object JSON, a missing `=`, or an empty key fails before the network request.
+- `anysearch-extract --max-length` sends only `url` to the live tool. A positive value truncates successful top-level and result text fields locally; zero or negative values preserve the normalized payload.
 - `anysearch-batch` accepts at most 5 CLI query strings and returns `error_type=parameter_error` without sending a request when the limit is exceeded.
+
+Sciverse:
+
+- `SCIVERSE_API_URL` defaults to `https://api.sciverse.space`; `SCIVERSE_TIMEOUT_SECONDS` defaults to `30`.
+- `SCIVERSE_API_TOKEN` is required. Missing token returns `error_type=config_error` without a network request; configured requests send `Authorization: Bearer ...` and must never expose the token.
+- Commands map directly to Sciverse OpenAPI: catalog -> `GET /meta-catalog`, search -> `POST /meta-search`, semantic -> `POST /agentic-search`, read -> `GET /content`, relations -> `POST /meta-paper-relations`.
+- `sciverse-read` uses `doc_id`; `sciverse-relations` uses `unique_id`.
+- Relation direction must stay explicit: `CITATIONS` means papers citing the target paper, `REFERENCES` means papers cited by the target paper, and `RELATED_WORKS` means related work suggestions.
+- Local limits reject before network: search `page_size <= 50`, semantic `top_k <= 30`, read `limit <= 16384`, relations `page_size <= 200`.
+- `--filters-advanced` and `--sort-advanced` must be JSON arrays and fail with `parameter_error` before service/provider calls when invalid.
 
 OpenAI-compatible streaming:
 
@@ -127,6 +149,7 @@ Exa domain filters:
 
 - Exa HTTP `400` or `422` failures are returned as `ok=false` with `error_type=parameter_error`; use this to distinguish bad CLI/domain/date/category arguments from upstream network failures.
 - AnySearch experimental output should preserve structured results without URLs as raw/structured evidence.
+- Sciverse experimental output should preserve raw response data under `raw` while exposing normalized `fields`, `results`, `hits`, `text`, or `items` depending on the command.
 - Diagnostic output should report Firecrawl status as whether `FIRECRAWL_API_KEY` is configured; it is not currently a live Firecrawl request.
 
 ## Routing Heuristics
