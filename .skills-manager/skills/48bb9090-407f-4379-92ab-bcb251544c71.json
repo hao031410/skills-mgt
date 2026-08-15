@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "48bb9090-407f-4379-92ab-bcb251544c71",
+  "path": "kimi-docx",
+  "path_key": "kimi-docx",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "thvroyal/kimi-skills/kimi-docx",
+    "subpath": "skills/kimi-docx",
+    "branch": null
+  }
+}
