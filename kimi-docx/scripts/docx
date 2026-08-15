@@ -15,7 +15,7 @@ SKILL_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Fixed path conventions
 WORK_DIR="/tmp/docx-work"
-OUTPUT_DIR="/mnt/okcomputer/output"
+OUTPUT_DIR="/Users/bytego/Documents/xuxian"
 
 # ============================================================================
 # Path remapping for legacy compatibility
