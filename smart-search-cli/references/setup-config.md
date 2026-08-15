@@ -27,7 +27,7 @@
 - If `smart-search doctor --format json` returns `ok: false`, follow the `error` field's guidance (`smart-search setup` or `smart-search config set KEY VALUE`); do not silently fall back to native web search.
 - `doctor --format markdown` must render a detailed diagnostic report with overall status, active/default/legacy config paths, log path resolution, file-logging status, masked config values with sources, minimum profile, capability status, main-search provider checks, provider connectivity checks, intent router status, embedding threshold/margin metadata, model metadata, and full long error/message detail.
 - Use `smart-search diagnose openai-compatible --format markdown` when `doctor` succeeds but OpenAI-compatible `search` appears to hang, returns a timeout, or differs between `--stream` and `--no-stream`. It is the beginner-facing one-command report for upstream/relay compatibility.
-- `diagnose openai-compatible --format markdown` must render a short copy-pasteable troubleshooting report with masked config, quick chat check, real search-shape `stream=false` and `stream=true` checks, a plain-language summary, and a next command.
+- `diagnose openai-compatible --format markdown` must render a short copy-pasteable troubleshooting report with masked config, quick chat check, real search-shape `stream=false` and `stream=true` checks, fallback-model inventory against `/models`, the remaining-budget timeout policy, a plain-language summary, and a next command.
 
 ## Setup Workflow
 
@@ -67,7 +67,7 @@
 - Use `smart-search setup --non-interactive --jina-key "key"` to let Jina satisfy `web_fetch`; `JINA_RESPOND_WITH=readerlm-v2` also requires `JINA_API_KEY`.
 - Use `smart-search setup --non-interactive --zhipu-mcp-key "key"` only when the user explicitly wants Coding Plan Remote MCP quota.
 - Use `smart-search setup --non-interactive --openai-compatible-stream true` only when an OpenAI-compatible relay benefits from SSE streaming for long requests. Default remains false.
-- Use `smart-search setup --non-interactive --openai-compatible-fallback-models "model-a,model-b"` to save ordered OpenAI-compatible backup models for primary model instability. `--fallback off` and `search --model MODEL` disable this model fallback for one invocation.
+- Use `smart-search setup --non-interactive --openai-compatible-fallback-models "model-a,model-b"` to save ordered OpenAI-compatible backup models for primary model hard failure. These models do not receive a reserved time slice; the primary model keeps the remaining `--timeout`. `--fallback off` and `search --model MODEL` disable this model fallback for one invocation.
 - Use `smart-search setup --non-interactive --anysearch-api-url "https://api.anysearch.com/mcp" --anysearch-key "key"` only for experimental AnySearch acceptance; do not add it to the normal minimum-profile setup.
 - Use `smart-search setup --non-interactive --sciverse-token "key" --sciverse-api-url "https://api.sciverse.space"` only for explicit experimental Sciverse academic commands; do not add it to the normal minimum-profile setup.
 - `TAVILY_API_URL` defaults to `https://api.tavily.com` and only affects Tavily REST calls. It does not proxy Zhipu.
