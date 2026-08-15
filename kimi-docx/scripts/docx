@@ -368,9 +368,16 @@ do_validate() {
         return 1
     fi
 
-    # OpenXML validation (separate unzip, Validator.dll requires docx file)
-    if ! "$DOTNET" "$SKILL_DIR/validator/Validator.dll" "$file" 2>&1; then
-        return 1
+    # OpenXML validation is performed by Program.cs on macOS because the bundled
+    # validator artifact is Linux-only and this package does not include its DLL.
+    if [ -f "$SKILL_DIR/validator/Validator.dll" ]; then
+        if ! "$DOTNET" "$SKILL_DIR/validator/Validator.dll" "$file" 2>&1; then
+            return 1
+        fi
+    else
+        if ! (cd "$WORK_DIR" && "$DOTNET" run --no-build -- --validate "$file") 2>&1; then
+            return 1
+        fi
     fi
 
     return 0
