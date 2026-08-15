@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "bb30da31-0822-4f51-b068-01dff4e8f05f",
+  "path": "officecli-docx",
+  "path_key": "officecli-docx",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "iofficeai/officecli/officecli-docx",
+    "subpath": "skills/officecli-docx",
+    "branch": null
+  }
+}

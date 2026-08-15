@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b51eb327-36ab-4c9d-bc5d-fc6b9746408a",
+  "path": "officecli-pptx",
+  "path_key": "officecli-pptx",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "iofficeai/officecli/officecli-pptx",
+    "subpath": "skills/officecli-pptx",
+    "branch": null
+  }
+}
